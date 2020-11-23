@@ -7,7 +7,7 @@ set(PROJECT_VERSION_PATCH 0)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 include_directories(include)
 include_directories(src)
@@ -32,30 +32,30 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/llvm/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
-# Check if llvm 8.0 exists in the system or if the submodule should be built
-find_package(LLVM 8.0 CONFIG)
-if (NOT LLVM_FOUND)
-    message("System LLVM was not found, LLVM will be built from the submodule.")
-    set(LLVM_TARGETS_TO_BUILD "X86" CACHE INTERNAL "")
-    option(LLVM_BUILD_RUNTIME OFF)
-    option(LLVM_BUILD_TOOLS OFF)
-    option(LLVM_INCLUDE_DOCS OFF)
-    option(LLVM_INCLUDE_EXAMPLES OFF)
-    option(LLVM_INCLUDE_TESTS OFF)
-    option(LLVM_INCLUDE_TOOLS OFF)
-    option(LLVM_INCLUDE_UTILS OFF)
-    option(WITH_POLLY OFF)
-    option(Wno-dev OFF)
-    # LLVM needs to be built out-of-tree
-    add_subdirectory(llvm ${CMAKE_BINARY_DIR}/llvm_build)
-    set(LLVM_DIR "${CMAKE_BINARY_DIR}/llvm_build/lib/cmake/llvm")
-
+# Check if llvm 10.0 exists in the system or if the submodule should be built
+# find_package(LLVM 10.0 CONFIG)
+# if (NOT LLVM_FOUND)
+#     message("System LLVM was not found, LLVM will be built from the submodule.")
+#     set(LLVM_TARGETS_TO_BUILD "X86" CACHE INTERNAL "")
+#     option(LLVM_BUILD_RUNTIME OFF)
+#     option(LLVM_BUILD_TOOLS OFF)
+#     option(LLVM_INCLUDE_DOCS OFF)
+#     option(LLVM_INCLUDE_EXAMPLES OFF)
+#     option(LLVM_INCLUDE_TESTS OFF)
+#     option(LLVM_INCLUDE_TOOLS OFF)
+#     option(LLVM_INCLUDE_UTILS OFF)
+#     option(WITH_POLLY OFF)
+#     option(Wno-dev OFF)
+#     # LLVM needs to be built out-of-tree
+#     add_subdirectory(llvm ${CMAKE_BINARY_DIR}/llvm_build)
+#     set(LLVM_DIR "${CMAKE_BINARY_DIR}/llvm_build/lib/cmake/llvm")
+# 
     # now tries to find LLVM again
-    find_package(LLVM 8.0 REQUIRED CONFIG)
+    find_package(LLVM 10.0 REQUIRED CONFIG)
     if (NOT LLVM_FOUND)
         message(WARNING "Couldn't build LLVM from the submodule. You might need to run `git submodule update --init`")
     endif()
-endif()
+# endif()
 
 # Generate parser.cpp and headers if syntax.y changed
 set(AN_PARSER_SRC ${CMAKE_SOURCE_DIR}/src/parser.cpp)

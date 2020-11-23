@@ -231,8 +231,8 @@ TypedValue Compiler::compFn(FuncDecl *fd){
     compCtxt->callStack.push_back(fd);
     auto *continueLabels = compCtxt->continueLabels.release();
     auto *breakLabels = compCtxt->breakLabels.release();
-    compCtxt->continueLabels = llvm::make_unique<vector<BasicBlock*>>();
-    compCtxt->breakLabels = llvm::make_unique<vector<BasicBlock*>>();
+    compCtxt->continueLabels = std::make_unique<vector<BasicBlock*>>();
+    compCtxt->breakLabels = std::make_unique<vector<BasicBlock*>>();
 
     TMP_SET(this->fnScope, this->scope);
     TypedValue ret = compFnHelper(this, fd);

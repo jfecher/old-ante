@@ -1043,7 +1043,7 @@ int Compiler::compileIRtoObj(llvm::Module *mod, string outFile){
         (LLVMTargetMachineRef)tm,
         (LLVMModuleRef)mod,
         filename,
-        (LLVMCodeGenFileType)llvm::TargetMachine::CGFT_ObjectFile, err);
+        (LLVMCodeGenFileType)CGFT_ObjectFile, err);
 
     delete tm;
     auto end = high_resolution_clock::now();
